@@ -11,7 +11,7 @@ sql_query = ("CREATE TABLE players("
              "Contextual integer, "
              "Chain integer, "
              "Opposites integer, "
-             "Alpha-Thom integer, "
+             "Alpha-Thon integer, "
              "Average float"
              ")")
 

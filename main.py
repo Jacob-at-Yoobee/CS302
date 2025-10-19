@@ -23,6 +23,7 @@ def admin_menu():
         else:
             print("Invalid Input!")
 
+
 def player_menu():
     player = ["Slang",
               "Rhyme Time",
@@ -65,11 +66,12 @@ def player_menu():
         else:
             print("Invalid input!")
 
+
 def main_menu():
     admin_login = False
     player_login = False
     logout = False
-    while admin_login == False and player_login == False and logout == False:
+    while admin_login is False and player_login is False and logout is False:
         print("Word Puzzle Game.")
         print("Made by Jacob Rosner.")
         print("Made in 2025.")
@@ -87,4 +89,6 @@ def main_menu():
             logout = True
         else:
             print("Invalid input!")
+
+
 main_menu()

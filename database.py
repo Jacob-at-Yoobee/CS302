@@ -2,6 +2,7 @@ import sqlite3
 from flask import Flask, request
 app = Flask(__name__)
 
+
 def db_connect():
     conn = None
     try:
@@ -9,6 +10,7 @@ def db_connect():
     except sqlite3.Error as error:
         print(error)
     return conn
+
 
 @app.route('/players', methods=['POST'])
 def player_data():
@@ -31,6 +33,7 @@ def player_data():
     conn.close()
 
     return "successfully saved data"
+
 
 if __name__ == '__main__':
     app.run(debug=True)

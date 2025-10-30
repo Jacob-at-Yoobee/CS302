@@ -31,6 +31,18 @@ def slang_mode():
     print("Good luck!")
     while lives > 0:
         print("Preparing word...")
+        slang_word = random.choice(list(slang_meanings.keys()))
+        meaning = input("What is the definition of {}? ".format(slang_word)).title()
+        if meaning == slang_meanings[slang_word]:
+            print("Well done!")
+            score += 1
+        else:
+            print("Incorrect!")
+            print("{} actually means {}".format(slang_word, slang_meanings[slang_word]))
+            lives -= 1
+
+    print("Game Over!")
+    print("You scored a total of {} points.".format(score))
 
 def gameplay():
     modes = ["Slang",

@@ -35,7 +35,7 @@
         
         .subtitle {
             text-align: center;
-            color: #666;
+            color: #420;
             margin-bottom: 30px;
         }
         
@@ -52,7 +52,7 @@
             border: none;
             cursor: pointer;
             font-size: 16px;
-            color: #666;
+            color: #420;
             transition: all 0.3s;
             border-bottom: 3px solid transparent;
         }
@@ -476,22 +476,22 @@
                 showMessage('Error: ' + error.message, 'error');
             }
         });
-        
+
         // Edit player
         async function editPlayer(id) {
             const newUsername = prompt('Enter new username (or leave blank to keep):');
             if (newUsername === null) return;
-            
+
             const data = {};
             if (newUsername) data.username = newUsername;
-            
+
             try {
                 const response = await fetch(`/api/players/${id}`, {
                     method: 'PUT',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(data)
                 });
-                
+
                 if (response.ok) {
                     showMessage('Player updated successfully!', 'success');
                     loadPlayers();
@@ -503,16 +503,16 @@
                 showMessage('Error: ' + error.message, 'error');
             }
         }
-        
+
         // Delete player
         async function deletePlayer(id) {
             if (!confirm('Are you sure you want to delete this player?')) return;
-            
+
             try {
                 const response = await fetch(`/api/players/${id}`, {
                     method: 'DELETE'
                 });
-                
+
                 if (response.ok) {
                     showMessage('Player deleted successfully!', 'success');
                     loadPlayers();
@@ -524,21 +524,21 @@
                 showMessage('Error: ' + error.message, 'error');
             }
         }
-        
+
         // ============== WORDS ==============
-        
+
         // Load all words
         async function loadWords() {
             try {
                 const response = await fetch('/api/words');
                 const words = await response.json();
                 const tbody = document.getElementById('words-tbody');
-                
+
                 if (words.length === 0) {
                     tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">No words found</td></tr>';
                     return;
                 }
-                
+
                 tbody.innerHTML = words.map(w => `
                     <tr>
                         <td>${w.id}</td>
@@ -557,11 +557,11 @@
                 showMessage('Error loading words: ' + error.message, 'error');
             }
         }
-        
+
         // Add new word
         document.getElementById('word-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            
+
             const data = {
                 word: document.getElementById('word-word').value,
                 meaning: document.getElementById('word-meaning').value,
@@ -569,14 +569,14 @@
                 translated: document.getElementById('word-translated').value,
                 example: document.getElementById('word-example').value
             };
-            
+
             try {
                 const response = await fetch('/api/words', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(data)
                 });
-                
+
                 if (response.ok) {
                     showMessage('Word added successfully!', 'success');
                     e.target.reset();

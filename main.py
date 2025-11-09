@@ -1,13 +1,13 @@
 def admin_menu():
-    admin = ["AP", "NW", "EP", "EW", "BACK"]
+    admin_choices = ["AP", "NW", "EP", "EW", "BACK"]
     admin_opt = ""
-    while admin_opt not in admin:
-        print("Admin menu")
-        print("Type AP to add a new player")
+    while admin_opt not in admin_choices:
+        print("Admin Menu")
+        print("Type AP to add new players")
         print("Type NW to add new words")
         print("Type EP to edit player data")
-        print("Type EW to edit the word list")
-        print("Type BACK to return to the main menu")
+        print("Type EW to edit word list")
+        print("Type BACK to return to the main menu.")
         admin_opt = input("Enter choice here: ").upper()
         if admin_opt == "AP":
             print("Opening database to add new players")
@@ -16,26 +16,26 @@ def admin_menu():
         elif admin_opt == "EP":
             print("Opening database to edit player data")
         elif admin_opt == "EW":
-            print("Opening database to edit words")
+            print("Opening database to edit word list")
         elif admin_opt == "BACK":
-            print("Returning to main menu")
+            print("Returning to main menu...")
             main_menu()
         else:
             print("Invalid Input!")
 
 
 def player_menu():
-    player = ["Slang",
-              "Rhyme Time",
-              "Translate",
-              "Contextual",
-              "Chain",
-              "Opposites",
-              "Alpha-Thon",
-              "Back"]
-    player_opt = ""
-    while player_opt not in player:
-        print("Player Menu")
+    game_modes = ["Slang",
+                  "Rhyme Time",
+                  "Translate",
+                  "Contextual",
+                  "Chain",
+                  "Opposites",
+                  "Alpha-Thon",
+                  "Back"]
+    selection = ""
+    while selection not in game_modes:
+        print("Player menu")
         print("Available game modes:")
         print("Slang")
         print("Rhyme Time")
@@ -44,49 +44,43 @@ def player_menu():
         print("Chain")
         print("Opposites")
         print("Alpha-Thon")
-        print("Back (return to main menu)")
-        player_opt = input("Enter choice here: ").title()
-        if player_opt == "Slang":
+        print("Back")
+        selection = input("Enter choice here: ").title()
+        if selection == "Slang":
             print("Entering Slang game mode")
-        elif player_opt == "Rhyme Time":
+        elif selection == "Rhyme Time":
             print("Entering Rhyme Time game mode")
-        elif player_opt == "Translate":
+        elif selection == "Translate":
             print("Entering Translate game mode")
-        elif player_opt == "Contextual":
+        elif selection == "Contextual":
             print("Entering Contextual game mode")
-        elif player_opt == "Chain":
+        elif selection == "Chain":
             print("Entering Chain game mode")
-        elif player_opt == "Opposites":
+        elif selection == "Opposites":
             print("Entering Opposites game mode")
-        elif player_opt == "Alpha-Thon":
+        elif selection == "Alpha-Thon":
             print("Entering Alpha-Thon game mode")
-        elif player_opt == "Back":
-            print("Returning to main menu.")
+        elif selection == "Back":
+            print("Returning to main menu...")
             main_menu()
         else:
-            print("Invalid input!")
+            print("Invalid Input!")
 
 
 def main_menu():
     admin_login = False
     player_login = False
-    logout = False
-    while admin_login is False and player_login is False and logout is False:
-        print("Word Puzzle Game.")
-        print("Made by Jacob Rosner.")
-        print("Made in 2025.")
-        opt = input("Are you a player or an admin? Or do you want to log out? ").lower()
+    while admin_login is False and player_login is False:
+        print("Word puzzle game")
+        print("Made by Jacob Rosner")
+        print("Made in 2025")
+        opt = input("Are you an admin or a player? ").lower()
         if opt == "admin":
-            print("Opening admin menu...")
             admin_login = True
             admin_menu()
         elif opt == "player":
-            print("Opening player menu...")
             player_login = True
             player_menu()
-        elif opt == "log out":
-            print("Logging out now. Goodbye!")
-            logout = True
         else:
             print("Invalid input!")
 

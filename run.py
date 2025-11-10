@@ -10,20 +10,20 @@ with app.app_context():
 
 if __name__ == '__main__':
     print("=" * 60)
-    print("🚀 Starting Word Puzzle Game API")
+    print(" Starting Word Puzzle Game API")
     print("=" * 60)
-    print(f"📊 Environment: {config_name}")
+    print(f" Environment: {config_name}")
 
     db_uri = app.config['SQLALCHEMY_DATABASE_URI']
     if '@' in db_uri:
         db_display = db_uri.split('@')[1]
     else:
         db_display = 'Not configured'
-    print(f"🔗 Database: {db_display}")
+    print(f" Database: {db_display}")
 
-    print(f"🌐 Server: http://localhost:5000")
-    print(f"📝 Debug Mode: {app.config['DEBUG']}")
+    print(f"Server: http://localhost:5000")
+    print(f"Debug Mode: {app.config['DEBUG']}")
     print("=" * 60)
-    print("\n💡 Press CTRL+C to stop the server\n")
+    print("\n Press CTRL+C to stop the server\n")
 
     app.run(debug=app.config['DEBUG'], host='0.0.0.0', port=5000)

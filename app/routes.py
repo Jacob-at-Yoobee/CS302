@@ -5,12 +5,14 @@ from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 # Create blueprint
 main_bp = Blueprint('main', __name__)
 
+
 # ============== HOME ROUTE ==============
 
 @main_bp.route('/')
 def index():
     """Render the main admin panel page"""
     return render_template('index.html')
+
 
 # ============== PLAYERS CRUD ROUTES ==============
 
@@ -19,7 +21,7 @@ def create_player():
     """CREATE - Add a new player"""
     try:
         data = request.get_json() if request.is_json else request.form
-        
+
         # Create new player instance
         player = Player(
             username=data.get('username'),
@@ -31,19 +33,19 @@ def create_player():
             opposites=int(data.get('Opposites', 0)),
             alpha_thon=int(data.get('AlphaThon', 0))
         )
-        
+
         # Calculate average
         player.calculate_average()
-        
+
         # Add to database
         db.session.add(player)
         db.session.commit()
-        
+
         return jsonify({
             'message': 'Player created successfully',
             'id': player.id
         }), 201
-        
+
     except IntegrityError as e:
         db.session.rollback()
         return jsonify({'error': 'Username already exists'}), 400
@@ -70,12 +72,12 @@ def get_player(player_id):
     """READ - Get a single player by ID"""
     try:
         player = Player.query.get(player_id)
-        
+
         if player:
             return jsonify(player.to_dict()), 200
         else:
             return jsonify({'error': 'Player not found'}), 404
-            
+
     except Exception as e:
         return jsonify({'error': str(e)}), 400
 
@@ -85,16 +87,16 @@ def update_player(player_id):
     """UPDATE - Update a player"""
     try:
         player = Player.query.get(player_id)
-        
+
         if not player:
             return jsonify({'error': 'Player not found'}), 404
-        
+
         data = request.get_json() if request.is_json else request.form
-        
+
         # Update fields if provided
         if 'username' in data and data['username']:
             player.username = data['username']
-        
+
         # Update scores
         score_updated = False
         if 'Slang' in data and data['Slang'] is not None:
@@ -118,15 +120,15 @@ def update_player(player_id):
         if 'AlphaThon' in data and data['AlphaThon'] is not None:
             player.alpha_thon = int(data['AlphaThon'])
             score_updated = True
-        
+
         # Recalculate average if any score was updated
         if score_updated:
             player.calculate_average()
-        
+
         db.session.commit()
-        
+
         return jsonify({'message': 'Player updated successfully'}), 200
-        
+
     except IntegrityError as e:
         db.session.rollback()
         return jsonify({'error': 'Username already exists'}), 400
@@ -143,15 +145,15 @@ def delete_player(player_id):
     """DELETE - Delete a player"""
     try:
         player = Player.query.get(player_id)
-        
+
         if not player:
             return jsonify({'error': 'Player not found'}), 404
-        
+
         db.session.delete(player)
         db.session.commit()
-        
+
         return jsonify({'message': 'Player deleted successfully'}), 200
-        
+
     except Exception as e:
         db.session.rollback()
         return jsonify({'error': str(e)}), 400
@@ -164,7 +166,7 @@ def create_word():
     """CREATE - Add a new word"""
     try:
         data = request.get_json() if request.is_json else request.form
-        
+
         # Create new word instance
         word = Word(
             word=data.get('word'),
@@ -173,16 +175,16 @@ def create_word():
             translated=data.get('translated'),
             example=data.get('example')
         )
-        
+
         # Add to database
         db.session.add(word)
         db.session.commit()
-        
+
         return jsonify({
             'message': 'Word created successfully',
             'id': word.id
         }), 201
-        
+
     except IntegrityError as e:
         db.session.rollback()
         return jsonify({'error': 'Word already exists'}), 400
@@ -206,12 +208,12 @@ def get_word(word_id):
     """READ - Get a single word by ID"""
     try:
         word = Word.query.get(word_id)
-        
+
         if word:
             return jsonify(word.to_dict()), 200
         else:
             return jsonify({'error': 'Word not found'}), 404
-            
+
     except Exception as e:
         return jsonify({'error': str(e)}), 400
 
@@ -221,12 +223,12 @@ def update_word(word_id):
     """UPDATE - Update a word"""
     try:
         word = Word.query.get(word_id)
-        
+
         if not word:
             return jsonify({'error': 'Word not found'}), 404
-        
+
         data = request.get_json() if request.is_json else request.form
-        
+
         # Update fields if provided
         if 'word' in data and data['word']:
             word.word = data['word']
@@ -238,11 +240,11 @@ def update_word(word_id):
             word.translated = data['translated']
         if 'example' in data:
             word.example = data['example']
-        
+
         db.session.commit()
-        
+
         return jsonify({'message': 'Word updated successfully'}), 200
-        
+
     except IntegrityError as e:
         db.session.rollback()
         return jsonify({'error': 'Word already exists'}), 400
@@ -256,15 +258,15 @@ def delete_word(word_id):
     """DELETE - Delete a word"""
     try:
         word = Word.query.get(word_id)
-        
+
         if not word:
             return jsonify({'error': 'Word not found'}), 404
-        
+
         db.session.delete(word)
         db.session.commit()
-        
+
         return jsonify({'message': 'Word deleted successfully'}), 200
-        
+
     except Exception as e:
         db.session.rollback()
         return jsonify({'error': str(e)}), 400
@@ -279,11 +281,11 @@ def search_players():
         query = request.args.get('q', '')
         if not query:
             return jsonify([]), 200
-        
+
         players = Player.query.filter(
             Player.username.ilike(f'%{query}%')
         ).order_by(Player.username).all()
-        
+
         return jsonify([player.to_dict() for player in players]), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 400
@@ -296,11 +298,11 @@ def search_words():
         query = request.args.get('q', '')
         if not query:
             return jsonify([]), 200
-        
+
         words = Word.query.filter(
             Word.word.ilike(f'%{query}%')
         ).order_by(Word.word).all()
-        
+
         return jsonify([word.to_dict() for word in words]), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 400
@@ -312,11 +314,11 @@ def get_stats():
     try:
         player_count = Player.query.count()
         word_count = Word.query.count()
-        
+
         # Get average score across all players
         from sqlalchemy import func
         avg_score = db.session.query(func.avg(Player.average)).scalar() or 0
-        
+
         return jsonify({
             'player_count': player_count,
             'word_count': word_count,

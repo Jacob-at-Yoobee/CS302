@@ -31,7 +31,7 @@ class DevelopmentConfig(Config):
     @staticmethod
     def init_app(app):
         Config.init_app(app)
-        print("🔧 Development mode enabled")
+        print(" Development mode enabled")
 
 
 class ProductionConfig(Config):

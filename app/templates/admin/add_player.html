@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Add New Player{% endblock %}
+
+{% block content %}
+<h1 class="mb-4 text-white">
+    <i class="bi bi-person-plus-fill"></i> Add New Player
+</h1>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card p-4">
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username *</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                    <small class="text-muted">Must be unique</small>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email *</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                    <small class="text-muted">Must be unique</small>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="full_name" class="form-label">Full Name *</label>
+                    <input type="text" class="form-control" id="full_name" name="full_name" required>
+                </div>
+                
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save-fill"></i> Add Player
+                    </button>
+                    <a href="{{ url_for('admin.list_players') }}" class="btn btn-secondary">
+                        <i class="bi bi-x-circle"></i> Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<h1 class="mb-4 text-white">
+    <i class="bi bi-gear-fill"></i> Admin Dashboard
+</h1>
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="stat-card">
+            <h3>{{ total_players }}</h3>
+            <p><i class="bi bi-people-fill"></i> Total Players</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stat-card" style="background: linear-gradient(135deg, #50c878, #2ecc71);">
+            <h3>{{ active_players }}</h3>
+            <p><i class="bi bi-person-check-fill"></i> Active Players</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stat-card" style="background: linear-gradient(135deg, #f39c12, #e74c3c);">
+            <h3>{{ total_words }}</h3>
+            <p><i class="bi bi-card-text"></i> Total Words</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stat-card" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
+            <h3>{{ total_games }}</h3>
+            <p><i class="bi bi-controller"></i> Games Played</p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card p-4 mb-4">
+            <h4 class="mb-3">
+                <i class="bi bi-people"></i> Player Management
+            </h4>
+            <div class="d-grid gap-2">
+                <a href="{{ url_for('admin.list_players') }}" class="btn btn-outline-primary">
+                    <i class="bi bi-list-ul"></i> View All Players
+                </a>
+                <a href="{{ url_for('admin.add_player') }}" class="btn btn-primary">
+                    <i class="bi bi-person-plus-fill"></i> Add New Player
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card p-4 mb-4">
+            <h4 class="mb-3">
+                <i class="bi bi-card-text"></i> Word Management
+            </h4>
+            <div class="d-grid gap-2">
+                <a href="{{ url_for('admin.list_words') }}" class="btn btn-outline-success">
+                    <i class="bi bi-list-ul"></i> View All Words
+                </a>
+                <a href="{{ url_for('admin.add_word') }}" class="btn btn-success">
+                    <i class="bi bi-plus-circle-fill"></i> Add New Word
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card p-4">
+            <h5 class="mb-3">
+                <i class="bi bi-clock-history"></i> Recent Players
+            </h5>
+            {% if recent_players %}
+                <div class="list-group">
+                    {% for player in recent_players %}
+                    <div class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>{{ player.username }}</strong>
+                                <br>
+                                <small class="text-muted">{{ player.email }}</small>
+                            </div>
+                            <span class="badge bg-primary rounded-pill">
+                                {{ player.total_score }} pts
+                            </span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-muted">No players yet</p>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card p-4">
+            <h5 class="mb-3">
+                <i class="bi bi-clock-history"></i> Recent Words
+            </h5>
+            {% if recent_words %}
+                <div class="list-group">
+                    {% for word in recent_words %}
+                    <div class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>{{ word.word }}</strong>
+                                <br>
+                                <small class="text-muted">{{ word.category }}</small>
+                            </div>
+                            <span class="badge bg-{{ 'success' if word.difficulty == 'easy' else 'warning' if word.difficulty == 'medium' else 'danger' }} rounded-pill">
+                                {{ word.difficulty }}
+                            </span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-muted">No words yet</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

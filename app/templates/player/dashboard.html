@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Player Dashboard{% endblock %}
+
+{% block content %}
+<h1 class="mb-4 text-white text-center">
+    <i class="bi bi-controller"></i> Choose Your Game Mode
+</h1>
+
+<div class="row g-4">
+    {% for mode in game_modes %}
+    <div class="col-md-4">
+        <a href="{{ url_for('player.play_game', game_mode=mode) }}" class="text-decoration-none">
+            <div class="card game-mode-card p-4 text-center">
+                <div class="mb-3">
+                    {% if mode == 'Slang' %}
+                        <i class="bi bi-chat-quote display-1 text-primary"></i>
+                    {% elif mode == 'Rhyme Time' %}
+                        <i class="bi bi-music-note display-1 text-info"></i>
+                    {% elif mode == 'Translate' %}
+                        <i class="bi bi-translate display-1 text-warning"></i>
+                    {% elif mode == 'Contextual' %}
+                        <i class="bi bi-book display-1 text-success"></i>
+                    {% elif mode == 'Chain' %}
+                        <i class="bi bi-link-45deg display-1 text-danger"></i>
+                    {% elif mode == 'Opposites' %}
+                        <i class="bi bi-arrow-left-right display-1 text-secondary"></i>
+                    {% elif mode == 'Alpha-Thon' %}
+                        <i class="bi bi-alphabet-uppercase display-1 text-dark"></i>
+                    {% endif %}
+                </div>
+                <h4>{{ mode }}</h4>
+                <p class="text-muted">
+                    {% if mode == 'Slang' %}
+                        Decode slang words and modern lingo
+                    {% elif mode == 'Rhyme Time' %}
+                        Find words that rhyme
+                    {% elif mode == 'Translate' %}
+                        Translate words to different languages
+                    {% elif mode == 'Contextual' %}
+                        Guess words from context clues
+                    {% elif mode == 'Chain' %}
+                        Build word chains letter by letter
+                    {% elif mode == 'Opposites' %}
+                        Find the opposite of words
+                    {% elif mode == 'Alpha-Thon' %}
+                        Alphabetical word marathon
+                    {% endif %}
+                </p>
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-12">
+        <div class="card p-4">
+            <h3 class="mb-4">
+                <i class="bi bi-info-circle-fill"></i> How to Play
+            </h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Game Instructions:</h5>
+                    <ul>
+                        <li>Choose a game mode from the cards above</li>
+                        <li>Answer word puzzles based on the selected mode</li>
+                        <li>Earn points for correct answers</li>
+                        <li>Check the leaderboard to see top players</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5>Tips:</h5>
+                    <ul>
+                        <li>Use hints wisely to maximize your score</li>
+                        <li>Practice different modes to improve</li>
+                        <li>Challenge yourself with harder difficulties</li>
+                        <li>Have fun and expand your vocabulary!</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

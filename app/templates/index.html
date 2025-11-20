@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Word Puzzle Game - Home{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center text-center">
+    <div class="col-md-10">
+        <div class="card p-5 mb-5">
+            <h1 class="display-3 fw-bold text-primary mb-4">
+                <i class="bi bi-puzzle-fill"></i> Word Puzzle Game
+            </h1>
+            <p class="lead text-muted mb-5">
+                Challenge your vocabulary with exciting word games!
+            </p>
+            
+            <div class="row g-4 mt-4">
+                <div class="col-md-6">
+                    <a href="{{ url_for('admin.admin_dashboard') }}" class="text-decoration-none">
+                        <div class="card game-mode-card p-4">
+                            <i class="bi bi-gear-fill display-1 text-primary mb-3"></i>
+                            <h3>Admin Panel</h3>
+                            <p class="text-muted">Manage players, words, and game settings</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="col-md-6">
+                    <a href="{{ url_for('player.player_dashboard') }}" class="text-decoration-none">
+                        <div class="card game-mode-card p-4">
+                            <i class="bi bi-controller display-1 text-success mb-3"></i>
+                            <h3>Play Games</h3>
+                            <p class="text-muted">Choose from 7 exciting game modes</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card p-4">
+            <h3 class="mb-4">Available Game Modes</h3>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="badge bg-primary p-3 w-100">
+                        <i class="bi bi-chat-quote"></i> Slang
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="badge bg-info p-3 w-100">
+                        <i class="bi bi-music-note"></i> Rhyme Time
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="badge bg-warning p-3 w-100">
+                        <i class="bi bi-translate"></i> Translate
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="badge bg-success p-3 w-100">
+                        <i class="bi bi-book"></i> Contextual
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="badge bg-danger p-3 w-100">
+                        <i class="bi bi-link-45deg"></i> Chain
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="badge bg-secondary p-3 w-100">
+                        <i class="bi bi-arrow-left-right"></i> Opposites
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="badge bg-dark p-3 w-100">
+                        <i class="bi bi-alphabet-uppercase"></i> Alpha-Thon
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mt-5 text-white">
+    <p>Made by Jacob Rosner | 2025</p>
+</div>
+{% endblock %}

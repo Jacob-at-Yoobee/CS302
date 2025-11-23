@@ -8,6 +8,7 @@ from app.models import db, Player, Word
 
 app = create_app('development')
 
+
 def init_database():
     with app.app_context():
         # Drop all tables and recreate them

@@ -7,6 +7,8 @@ admin_bp = Blueprint('admin', __name__)
 player_bp = Blueprint('player', __name__)
 
 # ==================== MAIN ROUTES ====================
+
+
 @main_bp.route('/')
 def index():
     return render_template('index.html')
